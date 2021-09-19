@@ -1,0 +1,16 @@
+{
+    "name": "geraldmicro",
+    "version": "1.0.0",
+    "description": "A discord selfbot based on discord.js V11",
+    "main": "bot.js",
+    "scripts": {
+        "start": "node bot.js"
+    },
+    "author": "ElementalMP4",
+    "license": "ISC",
+    "dependencies": {
+        "discord.js": "^11.0.0",
+        "giphy-api": "^2.0.1",
+        "owoify-js": "^1.0.7"
+    }
+}
