@@ -1,12 +1,12 @@
 {
-    "name": "geraldmicro",
+    "name": "notifybot",
     "version": "1.0.0",
     "description": "A discord selfbot based on discord.js V11",
     "main": "bot.js",
     "scripts": {
         "start": "node bot.js"
     },
-    "author": "ElementalMP4",
+    "author": "R&D",
     "license": "ISC",
     "dependencies": {
         "discord.js": "^11.0.0",
