@@ -7,7 +7,7 @@ const basename = path.basename(__filename);
 require('dotenv').config();
 const db = {};
 
-let sequelize = new Sequelize(
+const sequelize = new Sequelize(
   process.env.POSTGRES_DB,
   process.env.POSTGRES_USER,
   process.env.POSTGRES_PASSWORD,
