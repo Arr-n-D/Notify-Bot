@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  db:
+    image: postgres:12-alpine
+    container_name: notifybot-db
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    volumes:
+      - pgsql-volume:/var/lib/postgresql/data:delegated
+    networks:
+      - notifybot
+
+volumes:
+  pgsql-volume:
+
+networks:
+  notifybot:
+    driver: bridge
