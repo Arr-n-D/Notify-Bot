@@ -17,7 +17,7 @@ client.commands = new Collection();
     console.log("Connection has been established successfully.");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
-    process.exitCode = 1;
+    process.exit(1);
   }
 })();
 
@@ -28,27 +28,20 @@ for (const file of commandFiles) {
   console.log("Loaded command: " + command.data.name);
 }
 
-client.once("ready", () => {
-  console.log("Ready!");
-});
 
-client.on("interactionCreate", async (interaction) => {
-  if (!interaction.isCommand()) return;
+const eventFiles = fs
+  .readdirSync("./events")
+  .filter((file) => file.endsWith(".js"));
 
-  const command = client.commands.get(interaction.commandName);
-
-  if (!command) return;
-
-  try {
-    await command.execute(interaction);
-  } catch (error) {
-    console.error(error);
-    await interaction.reply({
-      content: "There was an error while executing this command!",
-      ephemeral: true,
-    });
+for (const file of eventFiles) {
+  const event = require(`./events/${file}`);
+  if (event.once) {
+    console.log(`Loaded event: ${event.name} ONCE` );
+    client.once(event.name, (...args) => event.execute(...args));
+  } else {
+    console.log(`Loaded event: ${event.name} ON` );
+    client.on(event.name, (...args) => event.execute(...args));
   }
-});
-
+}
 // Login to Discord with your client's token
 client.login(token);
