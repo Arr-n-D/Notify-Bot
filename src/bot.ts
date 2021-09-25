@@ -1,15 +1,15 @@
-const { Client, Intents, Collection } = require("discord.js");
+import * as Discord from "discord.js"
 // require dotenv config
 require("dotenv").config();
-const fs = require("fs");
+import * as fs from "fs"
 const db = require("./models/");
 
 const token = process.env.TOKEN;
-const client = new Client({ intents: Intents.FLAGS.GUILDS });
+const client = new Discord.Client({ intents: Discord.Intents.FLAGS.GUILDS });
 const commandFiles = fs
   .readdirSync("./commands")
   .filter((file) => file.endsWith(".js"));
-client.commands = new Collection();
+client.commands = new Discord.Collection();
 
 (async () => {
   try {
@@ -37,11 +37,12 @@ for (const file of eventFiles) {
   const event = require(`./events/${file}`);
   if (event.once) {
     console.log(`Loaded event: ${event.name} ONCE` );
-    client.once(event.name, (...args) => event.execute(...args));
+    client.once(event.name, (...args: any) => event.execute(...args));
   } else {
     console.log(`Loaded event: ${event.name} ON` );
-    client.on(event.name, (...args) => event.execute(...args));
+    client.on(event.name, (...args: any) => event.execute(...args));
   }
 }
 // Login to Discord with your client's token
 client.login(token);
+db.guild.sync();
