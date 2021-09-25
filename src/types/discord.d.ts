@@ -8,6 +8,6 @@ declare module "discord.js" {
   export interface Command {
     name: string;
     description: string;
-    execute: (message: Message, args: string[]) => Promise<void>;
+    execute: (args : any) => Promise<void>;
   }
 }

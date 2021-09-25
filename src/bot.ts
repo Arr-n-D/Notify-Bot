@@ -2,12 +2,16 @@ import * as Discord from "discord.js"
 // require dotenv config
 require("dotenv").config();
 import * as fs from "fs"
+import * as path from "path"
 const db = require("./models/");
+
+const commandsPath = path.join(__dirname, "commands");
+const eventsPath = path.join(__dirname, "events");
 
 const token = process.env.TOKEN;
 const client = new Discord.Client({ intents: Discord.Intents.FLAGS.GUILDS });
 const commandFiles = fs
-  .readdirSync("./commands")
+  .readdirSync(commandsPath)
   .filter((file) => file.endsWith(".js"));
 client.commands = new Discord.Collection();
 
@@ -30,7 +34,7 @@ for (const file of commandFiles) {
 
 
 const eventFiles = fs
-  .readdirSync("./events")
+  .readdirSync(eventsPath)
   .filter((file) => file.endsWith(".js"));
 
 for (const file of eventFiles) {
@@ -45,4 +49,4 @@ for (const file of eventFiles) {
 }
 // Login to Discord with your client's token
 client.login(token);
-db.guild.sync();
+db.guild.sync({force : true});

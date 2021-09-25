@@ -1,5 +1,6 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed, MessageActionRow, MessageButton } = require("discord.js");
+// import { SlashCommandBuilder } from require("@discordjs/builders");
+import { SlashCommandBuilder } from "@discordjs/builders";
+import {MessageEmbed, MessageActionRow, MessageButton, Interaction} from "discord.js";
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -29,7 +30,7 @@ module.exports = {
         .setDescription("Email for the account")
         .setRequired(true)
     ),
-  async execute(interaction) {
+  async execute(interaction: any) {
     await interaction.deferReply({ephemeral: true});
 
     const confirmEmbed = new MessageEmbed()
@@ -90,7 +91,7 @@ module.exports = {
       components: [row],
     });
 
-    const filter = (i) =>
+    const filter = (i : any) =>
       i.customId === "confirmBtn" || i.customId === "dangerBtn";
 
     const collector = interaction.channel.createMessageComponentCollector({
@@ -98,7 +99,7 @@ module.exports = {
       time: 15000,
     });
 
-    collector.on("collect", async (i) => {
+    collector.on("collect", async (i: any) => {
       if (i.customId === "confirmBtn") {
         await i.deferReply("Waiting...");
         // look up database to see if email or phone are already registered
