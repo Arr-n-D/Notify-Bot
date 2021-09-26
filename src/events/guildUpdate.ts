@@ -19,7 +19,7 @@ module.exports = {
           guild_owner: newGuild.ownerId,
         })
         .catch((err: Error) => {
-          console.log(chalk.red(`[GUILD ${newGuild.name} ERROR]: ${err}`));
+          console.log(chalk.red(`[GUILD ${newGuild.name} ERROR UPDATING NEW OWNER]: ${err}`));
         });
 
       // get the new guild owner

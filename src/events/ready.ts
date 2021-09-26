@@ -6,5 +6,7 @@ module.exports = {
   once: true,
   execute(client: Client) {
     console.log(chalk.green(`Ready! Logged in as ${client?.user?.tag}`));
+
+    client.user?.setActivity("👀 for keywords ", { type: "WATCHING" });
   },
 };
