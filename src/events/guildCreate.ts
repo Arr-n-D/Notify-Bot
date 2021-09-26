@@ -1,5 +1,6 @@
 import { Guild } from "discord.js";
 const db = require("../models")
+const chalk = require("chalk");
 
 module.exports = {
   name: "guildCreate",
@@ -18,7 +19,11 @@ module.exports = {
             guild_name: guild.name,
             guild_owner: guild.ownerId,
             guild_prefix: "??",
-        });
+        }).then(() => {
+            console.log(chalk.green(`[GUILD CREATED] ${guild.name}`))
+        }).catch((err: Error) => {
+            console.log(chalk.red(`[GUILD CREATION ERROR] ${err}`))
+        })
     }
   },
 };
