@@ -10,4 +10,8 @@ declare module "discord.js" {
     description: string;
     execute: (args : any) => Promise<void>;
   }
+
+  export interface CommandInteraction {
+    getOptions: () => string[];
+  }
 }

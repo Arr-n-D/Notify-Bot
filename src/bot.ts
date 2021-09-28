@@ -23,6 +23,14 @@ const commandFiles = fs
   .filter((file) => file.endsWith(".js"));
 client.commands = new Discord.Collection();
 
+Discord.CommandInteraction.prototype.getOptions = function (): string[] {
+  // create an array 
+  const options : any = [];
+  this.options.data.forEach((option) => {
+    options[option.name] = option.value;
+  });
+  return options;
+};
 (async () => {
   try {
     await db.sequelize.authenticate();
@@ -60,3 +68,4 @@ for (const file of eventFiles) {
 // Login to Discord with your client's token
 client.login(token);
 db.guild.sync();
+db.subscription.sync();

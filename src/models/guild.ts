@@ -15,9 +15,9 @@ module.exports = (sequelize : Sequelize, DataTypes: any) => {
   };
   Guild.init(
     {
-      guild_id: DataTypes.BIGINT.UNSIGNED,
+      guild_id: DataTypes.BIGINT,
       guild_name: DataTypes.STRING(255),
-      guild_owner: DataTypes.BIGINT.UNSIGNED,
+      guild_owner: DataTypes.BIGINT,
       guild_prefix : DataTypes.STRING(2),
     },
     {

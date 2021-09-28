@@ -16,7 +16,6 @@ const commandFiles = fs
 
   //Load Commands
 for (const file of commandFiles) {
-  // console.log(file)()
   const command = require(`./dist/commands/${file}`);
   console.log("Registered command: " + command.data.name);
   commands.push(command.data.toJSON());
