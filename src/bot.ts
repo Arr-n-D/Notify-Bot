@@ -52,6 +52,12 @@ for (const file of commandFiles) {
   console.log(chalk.green(`Loaded command: ${command.data.name}`));
 }
 
+for (const file of commandFiles) {
+  const command = require(`./commands/${file}`);
+  client.commands.set(command.data.name, command);
+  console.log(chalk.green(`Loaded command: ${command.data.name}`));
+}
+
 const eventFiles = fs
   .readdirSync(eventsPath)
   .filter((file) => file.endsWith(".js"));

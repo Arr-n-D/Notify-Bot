@@ -5,7 +5,7 @@ import { Twilio } from "twilio";
 
 const client = new Twilio(accountSid, authToken);
 
-function sendSMS(phone : string, message: string) {
+export function sendSMS(phone : string, message: string) {
   client.messages
     .create({
       body: message,
