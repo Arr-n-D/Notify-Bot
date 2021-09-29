@@ -31,9 +31,11 @@ Discord.CommandInteraction.prototype.getOptions = function (): string[] {
   });
   return options;
 };
+
 (async () => {
   try {
     await db.sequelize.authenticate();
+    
     console.log(chalk.green(`Connected to the database`));
   } catch (error) {
     console.log(
