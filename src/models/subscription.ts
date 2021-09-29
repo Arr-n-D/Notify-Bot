@@ -19,6 +19,7 @@ module.exports = (sequelize: Sequelize, DataTypes: any) => {
       sub_keyword: DataTypes.STRING(10),
       sub_member_id: DataTypes.BIGINT,
       sub_active: DataTypes.BOOLEAN,
+      sub_type : DataTypes.STRING(10),
     },
     {
       paranoid: true,
