@@ -1,4 +1,5 @@
-export function getEnumKeyByEnumValue(myEnum: any, enumValue : any) {
-  let keys = Object.keys(myEnum).filter((x) => myEnum[x] == enumValue);
-  return keys.length > 0 ? keys[0] : null;
+import { SubscriptionEnum } from "../enums/SubscriptionEnum";
+
+export function isSubscriptionEnum(value: string): value is SubscriptionEnum {
+  return Object.values(SubscriptionEnum).includes(value as SubscriptionEnum);
 }

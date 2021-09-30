@@ -24,8 +24,8 @@ const commandFiles = fs
 client.commands = new Discord.Collection();
 
 Discord.CommandInteraction.prototype.getOptions = function (): string[] {
-  // create an array 
-  const options : any = [];
+  // create an array
+  const options: any = [];
   this.options.data.forEach((option) => {
     options[option.name] = option.value;
   });
@@ -35,7 +35,7 @@ Discord.CommandInteraction.prototype.getOptions = function (): string[] {
 (async () => {
   try {
     await db.sequelize.authenticate();
-    
+
     console.log(chalk.green(`Connected to the database`));
   } catch (error) {
     console.log(

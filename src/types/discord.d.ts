@@ -22,6 +22,6 @@ declare module "discord.js" {
   }
 
   export interface GuildMember {
-    subscriptions: Collection<unknown, Keyword>;
+    subscriptions: Collection<number, Keyword>;
   }
 }

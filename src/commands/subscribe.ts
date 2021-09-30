@@ -32,7 +32,8 @@ module.exports = {
     await interaction.deferReply({ ephemeral: true });
 
     const keyword = interaction.options.getString("keyword");
-    const subscriptionType = interaction.options.getString("subscriptiontype");
+    const subscriptionType =
+      interaction?.options?.getString("subscriptiontype");
     const guildMember = interaction.member;
 
     const subscribedKeywords: any[] = [];
@@ -45,29 +46,43 @@ module.exports = {
         sub_type: subscriptionType,
       },
     });
-    const key = Utils.getEnumKeyByEnumValue(SubscriptionEnum, subscriptionType) as string;
+
+    console.log(guildMember instanceof GuildMember);
+    console.log(subscriptionType !== null);
+    console.log(subscriptionType);
+    console.log(Utils.isSubscriptionEnum(subscriptionType as string));
+
     if (created) {
       subscribedKeywords.push(keyword);
       // check if type of guildMember is GuildMember
-      if (guildMember instanceof GuildMember) {
+      if (
+        guildMember instanceof GuildMember &&
+        subscriptionType !== null &&
+        Utils.isSubscriptionEnum(subscriptionType)
+      ) {
+        // check if subscriptionType is in SubscriptionEnum
+
         const newKeyword: Keyword = {
           value: keyword ?? "",
-          notificationType: SubscriptionEnum[subscriptionType],
+          notificationType: subscriptionType,
         };
-        guildMember.subscriptions.set(keyword, newKeyword);
-
+        guildMember.subscriptions.set(guildMember.subscriptions.size + 1, newKeyword);
         console.log(
           chalk.green(
             `[KEYWORD ${keyword} CREATED FOR USER ${interaction?.member?.user.username} ON ${interaction?.guild?.name}`
           )
         );
       } else {
-        console.log(
-          chalk.yellow(
-            `[KEYWORD ${keyword} ALREADY EXISTS FOR USER ${interaction?.member?.user.username} ON ${interaction?.guild?.name}`
-          )
-        );
+        // return error
+        await interaction.editReply("An error occured");
+        return;
       }
+    } else {
+      console.log(
+        chalk.yellow(
+          `[KEYWORD ${keyword} ALREADY EXISTS FOR USER ${interaction?.member?.user.username} ON ${interaction?.guild?.name}`
+        )
+      );
     }
 
     // notify the user of which keywords were subscribed to
