@@ -13,7 +13,7 @@ export function resultsToAssociativeArray<T>(key: string, results: any[]) {
  for (let i = 0; i < dataValues.length; i++) {
     if (dataValues[i][key]) {
         if(associativeArray[dataValues[i][key]] && Array.isArray(associativeArray[dataValues[i][key]])) {
-            associativeArray[dataValues[i][key]].push(dataValues[i])
+            associativeArray[dataValues[i][key]]?.push(dataValues[i])
         } else {
             associativeArray[dataValues[i][key]] = [dataValues[i]]
         }
