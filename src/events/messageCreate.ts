@@ -22,14 +22,18 @@ module.exports = {
             const valueOfKeyword = keyword?.value || "";
             const notificationType = keyword?.notificationType;
 
-            // check if message content contains the keyword
-            if (message.content.toLowerCase().includes(valueOfKeyword)) {
+            const [, ...args] = message.content.split(" ");
+
+            // check if ...args contains the keyword
+            if (args.includes(valueOfKeyword)) {
               console.log(notificationType);
               // switch case over the notification type
               switch (notificationType) {
                 case "dm":
                   // send a DM to the user
-                  member.send(`Your keyword ${valueOfKeyword} was found in the ${message.guild?.name} server, here's the link! ${message.url}`);
+                  member.send(
+                    `Your keyword ${valueOfKeyword} was found in the ${message.guild?.name} server, here's the link! ${message.url}`
+                  );
 
                   break;
                 case "phone":

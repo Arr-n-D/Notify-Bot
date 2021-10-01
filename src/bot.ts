@@ -20,7 +20,7 @@ const client = new Discord.Client({
 const commandFiles = fs
   .readdirSync(commandsPath)
   .filter((file) => file.endsWith(".js"));
-  
+
 client.commands = new Discord.Collection();
 
 Discord.CommandInteraction.prototype.getOptions = function (): string[] {

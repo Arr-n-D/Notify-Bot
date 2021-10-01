@@ -19,13 +19,19 @@ module.exports = (sequelize: Sequelize, DataTypes: any) => {
       sub_keyword: DataTypes.STRING(10),
       sub_member_id: DataTypes.BIGINT,
       sub_active: DataTypes.BOOLEAN,
-      sub_type : DataTypes.STRING(10),
+      sub_type: DataTypes.STRING(10),
     },
     {
       paranoid: true,
       underscored: true,
       sequelize,
       modelName: "subscription",
+      indexes: [
+        {
+          unique: true,
+          fields: ["sub_keyword", "sub_type"],
+        },
+      ],
     }
   );
   return Subscription;

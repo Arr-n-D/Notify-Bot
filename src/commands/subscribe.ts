@@ -39,18 +39,13 @@ module.exports = {
     const subscribedKeywords: any[] = [];
     // check if keyword is already subscribed to
     const [, created] = await db.subscription.findOrCreate({
-      where: { sub_keyword: keyword },
+      where: { sub_keyword: keyword, sub_type: subscriptionType },
       defaults: {
         sub_member_id: guildMember?.user.id,
         sub_active: true,
         sub_type: subscriptionType,
       },
     });
-
-    console.log(guildMember instanceof GuildMember);
-    console.log(subscriptionType !== null);
-    console.log(subscriptionType);
-    console.log(Utils.isSubscriptionEnum(subscriptionType as string));
 
     if (created) {
       subscribedKeywords.push(keyword);
@@ -66,7 +61,10 @@ module.exports = {
           value: keyword ?? "",
           notificationType: subscriptionType,
         };
-        guildMember.subscriptions.set(guildMember.subscriptions.size + 1, newKeyword);
+        guildMember.subscriptions.set(
+          guildMember.subscriptions.size + 1,
+          newKeyword
+        );
         console.log(
           chalk.green(
             `[KEYWORD ${keyword} CREATED FOR USER ${interaction?.member?.user.username} ON ${interaction?.guild?.name}`

@@ -1,4 +1,4 @@
-import { Client, Collection } from "discord.js";
+import { Client, Collection, Keyword } from "discord.js";
 import { resultsToAssociativeArray } from "../utils/sequelize";
 const chalk = require("chalk");
 const db = require("../models");
@@ -14,21 +14,36 @@ module.exports = {
           where: {
             sub_member_id: membersId,
           },
-          attributes: [
-            "sub_keyword",
-            "sub_type",
-            "sub_member_id",
-          ],
+          attributes: ["sub_keyword", "sub_type", "sub_member_id"],
         });
 
-        const associative = resultsToAssociativeArray("sub_member_id", userSubscriptions);
+        const associativeUserSubs = resultsToAssociativeArray(
+          "sub_member_id",
+          userSubscriptions
+        );
 
-        // console.log(userSubscriptions);
-        // find all
-        //   members.forEach((member) => {
-        //     console.log(chalk.green(`${member.user.tag}#${member.user.discriminator} - ${member.user.id}`));
-        //     member.subscriptions = new Collection();
-        //   });
+        // loop over associativeUserSubs and add to guild.members
+
+        members.forEach((member) => {
+          member.subscriptions = new Collection();
+          const memberSubscriptions = associativeUserSubs[member.id];
+          if (memberSubscriptions) {
+            // for let i loop
+            for (let i = 0; i < memberSubscriptions.length; i++) {
+              const { sub_keyword, sub_type } = memberSubscriptions[i] as any;
+              // const { sub_keyword, sub_type } = subscription as any;
+              const newKeyword: Keyword = {
+                value: sub_keyword,
+                notificationType: sub_type,
+              };
+              member.subscriptions.set(
+                member.subscriptions.size + 1,
+                newKeyword
+              );
+            }
+          }
+          console.log(member.subscriptions);
+        });
       });
     });
     client.user?.setActivity("👀 for keywords ", { type: "WATCHING" });
