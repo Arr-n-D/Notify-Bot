@@ -1,5 +1,4 @@
 import * as Discord from "discord.js";
-// require dotenv config
 require("dotenv").config();
 import * as fs from "fs";
 import * as path from "path";
@@ -8,7 +7,6 @@ const chalk = require("chalk");
 
 const commandsPath = path.join(__dirname, "commands");
 const eventsPath = path.join(__dirname, "events");
-
 const token = process.env.TOKEN;
 const client = new Discord.Client({
   intents: [
@@ -18,9 +16,11 @@ const client = new Discord.Client({
     Discord.Intents.FLAGS.GUILD_MEMBERS,
   ],
 });
+
 const commandFiles = fs
   .readdirSync(commandsPath)
   .filter((file) => file.endsWith(".js"));
+  
 client.commands = new Discord.Collection();
 
 Discord.CommandInteraction.prototype.getOptions = function (): string[] {
