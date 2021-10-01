@@ -13,7 +13,7 @@ export function sendSMS(message: string, phone: string) {
       to: phone,
     })
 
-    .then((messageRtn) => console.log(messageRtn.sid))
+    // .then((messageRtn) => )
     .catch((error) => {
       console.log(error);
     });

@@ -22,11 +22,13 @@ module.exports = {
             const valueOfKeyword = keyword?.value || "";
             const notificationType = keyword?.notificationType;
 
-            const [, ...args] = message.content.split(" ");
+            const [firstMessage, ...restOf] = message.content.split(" ");
 
             // check if ...args contains the keyword
-            if (args.includes(valueOfKeyword)) {
-              console.log(notificationType);
+            if (
+              restOf.includes(valueOfKeyword) ||
+              firstMessage === valueOfKeyword
+            ) {
               // switch case over the notification type
               switch (notificationType) {
                 case "dm":

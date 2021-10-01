@@ -42,7 +42,6 @@ module.exports = {
               );
             }
           }
-          console.log(member.subscriptions);
         });
       });
     });
