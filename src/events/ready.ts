@@ -22,27 +22,31 @@ module.exports = {
           userSubscriptions
         );
 
+        console.log(associativeUserSubs);
+
+        
+
         // loop over associativeUserSubs and add to guild.members
 
-        members.forEach((member) => {
-          member.subscriptions = new Collection();
-          const memberSubscriptions = associativeUserSubs[member.id];
-          if (memberSubscriptions) {
-            // for let i loop
-            for (let i = 0; i < memberSubscriptions.length; i++) {
-              const { sub_keyword, sub_type } = memberSubscriptions[i] as any;
-              // const { sub_keyword, sub_type } = subscription as any;
-              const newKeyword: Keyword = {
-                value: sub_keyword,
-                notificationType: sub_type,
-              };
-              member.subscriptions.set(
-                member.subscriptions.size + 1,
-                newKeyword
-              );
-            }
-          }
-        });
+        // members.forEach((member) => {
+        //   member.subscriptions = new Collection();
+        //   const memberSubscriptions = associativeUserSubs[member.id];
+        //   if (memberSubscriptions) {
+        //     // for let i loop
+        //     for (let i = 0; i < memberSubscriptions.length; i++) {
+        //       const { sub_keyword, sub_type } = memberSubscriptions[i] as any;
+        //       // const { sub_keyword, sub_type } = subscription as any;
+        //       const newKeyword: Keyword = {
+        //         value: sub_keyword,
+        //         notificationType: sub_type,
+        //       };
+        //       member.subscriptions.set(
+        //         member.subscriptions.size + 1,
+        //         newKeyword
+        //       );
+        //     }
+        //   }
+        // });
       });
     });
     client.user?.setActivity("👀 for keywords ", { type: "WATCHING" });
