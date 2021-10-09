@@ -21,7 +21,7 @@ declare module "discord.js" {
     getOptions: () => string[];
   }
 
-  export interface GuildMember {
+  export interface Guild {
     subscriptions: Collection<number, Keyword>;
   }
 }
