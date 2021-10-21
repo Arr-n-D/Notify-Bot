@@ -61,10 +61,10 @@ module.exports = {
           value: keyword ?? "",
           notificationType: subscriptionType,
         };
-        guildMember.subscriptions.set(
-          guildMember.subscriptions.size + 1,
-          newKeyword
-        );
+        // guildMember.subscriptions.set(
+        //   guildMember.subscriptions.size + 1,
+        //   newKeyword
+        // );
         console.log(
           chalk.green(
             `[KEYWORD ${keyword} CREATED FOR USER ${interaction?.member?.user.username} ON ${interaction?.guild?.name}`

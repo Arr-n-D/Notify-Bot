@@ -23,6 +23,30 @@ module.exports = {
         );
 
         console.log(associativeUserSubs);
+        guild.subscriptions = new Collection();
+        //push associativeUserSubs to guild.subscriptions
+        for (const [memberId, subs] of Object.entries(associativeUserSubs)) {
+          const member = guild.members.cache.get(memberId);
+          if (!member) continue;
+          for (const sub of subs) {
+            const memberIdInt = parseInt(memberId);
+            const newSub = sub as any
+            const newKeyword: Keyword = {
+              value: newSub.sub_keyword ?? "",
+              notificationType: newSub.sub_type ?? "",
+            };
+
+            // get our keyword collection at index 
+            const keywordCollection = guild.subscriptions.get(memberIdInt);
+            if (!keywordCollection) {
+              guild.subscriptions.set(memberIdInt, newKeyword);
+            } else {
+              keywordCollection.push(newKeyword);
+            }
+          }
+        }
+
+        console.log(guild.subscriptions);
 
         
 

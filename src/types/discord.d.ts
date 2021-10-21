@@ -22,6 +22,6 @@ declare module "discord.js" {
   }
 
   export interface Guild {
-    subscriptions: Collection<number, Keyword>;
+    subscriptions: Collection<number, Collection<Keyword>;
   }
 }

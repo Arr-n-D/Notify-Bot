@@ -12,41 +12,41 @@ module.exports = {
 
     // loop over the guild members
 
-    guild?.members.fetch().then((members) => {
-      // loop over the members
-      members.forEach((member) => {
-        const sizeofSubscription = member?.subscriptions?.size || 0;
-        if (sizeofSubscription > 0) {
-          for (let i = 1; i < sizeofSubscription + 1; i++) {
-            const keyword = member?.subscriptions.get(i);
-            const valueOfKeyword = keyword?.value || "";
-            const notificationType = keyword?.notificationType;
+    // guild?.members.fetch().then((members) => {
+    //   // loop over the members
+    //   members.forEach((member) => {
+    //     // const sizeofSubscription = member?.subscriptions?.size || 0;
+    //     if (sizeofSubscription > 0) {
+    //       for (let i = 1; i < sizeofSubscription + 1; i++) {
+    //         // const keyword = member?.subscriptions.get(i);
+    //         const valueOfKeyword = keyword?.value || "";
+    //         const notificationType = keyword?.notificationType;
 
-            const [firstMessage, ...restOf] = message.content.split(" ");
+    //         const [firstMessage, ...restOf] = message.content.split(" ");
 
-            // check if ...args contains the keyword
-            if (
-              restOf.includes(valueOfKeyword) ||
-              firstMessage === valueOfKeyword
-            ) {
-              // switch case over the notification type
-              switch (notificationType) {
-                case "dm":
-                  // send a DM to the user
-                  member.send(
-                    `Your keyword ${valueOfKeyword} was found in the ${message.guild?.name} server, here's the link! ${message.url}`
-                  );
+    //         // check if ...args contains the keyword
+    //         if (
+    //           restOf.includes(valueOfKeyword) ||
+    //           firstMessage === valueOfKeyword
+    //         ) {
+    //           // switch case over the notification type
+    //           switch (notificationType) {
+    //             case "dm":
+    //               // send a DM to the user
+    //               member.send(
+    //                 `Your keyword ${valueOfKeyword} was found in the ${message.guild?.name} server, here's the link! ${message.url}`
+    //               );
 
-                  break;
-                case "phone":
-                  Utils.sendSMS(message.content, "+14185757516");
+    //               break;
+    //             case "phone":
+    //               Utils.sendSMS(message.content, "+14185757516");
 
-                  break;
-              }
-            }
-          }
-        }
-      });
-    });
+    //               break;
+    //           }
+    //         }
+    //       }
+    //     }
+    //   });
+    // });
   },
 };
